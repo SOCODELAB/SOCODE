@@ -36,8 +36,21 @@ except ImportError:
         def load_model(self, path):
             self.is_trained = True
             return True
+            return reply.code(402).send({
+    status: "payment_required",
+    chain: "solana",
+    token: "SOL",
+    amount_lamports: priceLamports,
+    recipient,
+    note: "Pay this amount to unlock MCP access for a short period.",
+  });
+});
             
-
+// x402: return payment requirement
+fastify.get("/x402/payment-required", async (request, reply) => {
+  // In a real system, you would compute dynamic pricing based on usage, tools, etc.
+  const priceLamports = 100_000; // example: 0.0001 SOL
+  const recipient = process.env.PAYMENT_RECIPIENT || "YourRecipientPubkeyHere";
 
 
 AlreadyActive,
